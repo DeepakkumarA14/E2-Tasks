@@ -1,0 +1,191 @@
+* {
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {  
+  height: 15%;
+  width: 100%;
+  background-color: brown;
+  border: solid black 1px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-wrapper {
+  display: flex;
+  margin: 5px;
+}
+
+.sidebar {
+  height: auto;
+  width: 35%;
+  background-color: green;
+  border: solid black 1px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.maincontent {
+  height: auto;
+  width: 65%;
+  background-color: grey;
+  border: solid black 1px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  height: 15%;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: blue;
+  border: solid black 1px;
+  border-radius: 15px;
+  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+  .header {
+    background-color: lightcoral;
+    transition-duration: 1.5s;
+    font-size: 20px;
+  }
+
+  .sidebar {
+    background-color: lightgreen;
+    transition-duration: 1.5s;
+    font-size: 20px;
+  }
+
+  .maincontent {
+    background-color: lightgray;
+    transition-duration: 1.5s;
+    font-size: 20px;
+  }
+
+  .footer {
+    background-color: lightblue;
+    transition-duration: 1.5s;
+    font-size: 20px;
+  }  
+}
+
+
+@media screen and (min-width: 800px) {
+  .header {
+    background-color: brown;
+    transition-duration: 2s;
+    font-size: 20px;
+  }
+
+  .sidebar {
+    background-color: green;
+    transition-duration: 2s;
+    font-size: 20px;
+  }
+
+  .maincontent {
+    background-color: gray;
+    transition-duration: 2s;
+    font-size: 20px;
+  }
+
+  .footer {
+    background-color: blue;
+    transition-duration: 2s;
+    font-size: 20px;
+  }  
+}
+
+@media screen and (max-width: 800px) {
+  .header, .sidebar, .maincontent, .footer {
+    animation-duration: 1.5s;
+  }
+
+  .header {
+    background-color: lightcoral;
+    animation-name: slide-in-top;
+  }
+
+  .sidebar {
+    background-color: lightgreen;
+    animation-name: slide-in-left;
+  }
+
+  .maincontent {
+    background-color: lightgray;
+    animation-name: slide-in-right;
+  }
+
+  .footer {
+    background-color: lightblue;
+    animation-name: slide-in-bottom;
+  }
+
+  @keyframes slide-in-top {
+    from {
+      transform: translateY(-100%);
+      opacity: 10;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 10;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 10;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 10;
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 10;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 10;
+    }
+  }
+
+  @keyframes slide-in-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 10;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 10;
+    }
+  }
+}
