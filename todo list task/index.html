@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="title">
+        <h1>To-do List using JavaScript</h1>
+    </div>
+    <div class="container">
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Enter new task">
+            <button id="addTaskButton">Add</button>
+        </div>
+        <p id="error-message" class="error-message"></p>
+        <div class="tabs">
+            <button id="allTasks" class="tab">All</button>
+            <button id="inProgressTasks" class="tab">In Progress</button>
+            <button id="completedTasks" class="tab">Completed</button>
+        </div>
+        <div id="tableheadings">
+            <p class="tableheading1">Tasks</p>
+            <p class="tableheading2"><span style="margin-right: 3px;">Edit</span>  <span>Delete</span></p>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+    <div id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
