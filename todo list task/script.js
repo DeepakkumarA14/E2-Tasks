@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let editButton = document.createElement('button');
         editButton.innerHTML = '🖊️';
         editButton.onclick = function() { 
-            showGreenToast("Edit the Task, Then Switch Tabs!");
+            showToast("Edit the Task, Then Switch Tabs!",'green');
             editTask(index); };
 
         let deleteButton = document.createElement('button');
@@ -130,14 +130,14 @@ document.addEventListener('DOMContentLoaded', function() {
         let taskValue = taskInput.value.trim().replace(/\s+/g, ' ');
     
         if (taskValue === '') {
-            showErrorMessage('Task cannot be empty!');
+            handleErrorMessage('Task cannot be empty!');
             return;
         }
  
         if (editIndex !== null) {
             disableTabButtons();
             if (taskValue === tasks[editIndex].text) {
-                showGreenToast("No Changes Made.");
+                showToast("No Changes Made.",'green');
                 taskInput.value = '';
                 editIndex = null;
                 addTaskButton.textContent = 'Add';
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return task.text.toLowerCase()=== taskValue.toLowerCase() && index !== editIndex;
             });
             if (taskExists) {
-                showRedToast("Task Already Exists!");
+                showToast("Task Already Exists!",'red');
                 enableTabButtons(); 
                 return;
             }
@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 top: 0,
                 behavior: 'smooth'
             });
-            showGreenToast('Task Edited Successfully!');
+            showToast('Task Edited Successfully!','green');
         } else {
             if (tasks.some(function (task) { return task.text.toLowerCase()=== taskValue.toLowerCase();})) {
-                showRedToast('Task Already Exists!');
+                showToast('Task Already Exists!','red');
                 enableTabButtons(); 
                 return;
             }
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 top: 0,
                 behavior: 'smooth'
             });
-            showGreenToast('Task Added Successfully!');
+            showToast('Task Added Successfully!','green');
             renderAllTasks();
             highlightActiveTab(allTasksButton);
         }
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         confirmDeleteButton.addEventListener('click', function() {
             deleteTask(index);
-            showRedToast('Task Deleted Successfully!');
+            showToast('Task Deleted Successfully!','red');
             closeModal(modal);
         });
 
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 renderActiveTab('all');    
-                showGreenToast('Task Completed Successfully!!!');  
+                showToast('Task Completed Successfully!!!','green');  
             } else if (task.status === 'completed') {
                 tasks.splice(index, 1);
                 task.status = 'inProgress';
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 renderActiveTab('all');    
-                showGreenToast('Task re-added Successfully!!!');  
+                showToast('Task re-added Successfully!!!','green');  
             } 
         } else if (inProgressTasksButton.classList.contains('active')) {
             if (task.status === 'inProgress') {
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 renderActiveTab('completed'); 
-                showGreenToast('Task Completed Successfully!!!');
+                showToast('Task Completed Successfully!!!','green');
                
             }
         } else if (completedTasksButton.classList.contains('active')) {
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 renderActiveTab('inProgress');    
-                showGreenToast('Task re-added Successfully!!!');
+                showToast('Task re-added Successfully!!!','green');
                
             }
         } else{
@@ -407,35 +407,26 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTab.classList.add('active');
     }
 
-    function showGreenToast(message){
+    function showToast(message, type) {
         toast.textContent = message;
-        toast.className = "show showgreen";
+        toast.className = `show show${type}`;
         toast.style.visibility = 'visible';
         setTimeout(function() {
             toast.style.visibility = 'hidden';
         }, 3000);
     }
 
-    function showRedToast(message){
-        toast.textContent = message;
-        toast.className = "show showred";
-        toast.style.visibility = 'visible';
-        setTimeout(function() {
-            toast.style.visibility = 'hidden';
-        }, 3000);
-    }
-
-    function showErrorMessage(message) {
-        errorMessage.textContent = message;
-        errorMessage.style.display = 'block';
-        setTimeout(function() {
+    function handleErrorMessage(message = '') {
+        if (message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(function() {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        } else {
+            errorMessage.textContent = '';
             errorMessage.style.display = 'none';
-        }, 3000);
-    }
-
-    function clearErrorMessage() {
-        errorMessage.textContent = '';
-        errorMessage.style.display = 'none';
+        }
     }
 
     function saveTasksToLocalStorage() {
@@ -443,32 +434,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     taskInput.addEventListener('input', function() {
-        const taskValue = taskInput.value;
+        const taskValue = taskInput.value; 
 
         if (taskValue === '') {
-            clearErrorMessage();
+            handleErrorMessage();
             return;
         }
 
         if (taskInput.value.charAt(0) === ' ') {
-            showErrorMessage('whitespace is not allowed!');
+            handleErrorMessage('whitespace is not allowed!');
             taskInput.value = taskInput.value.trimStart();
             return;
         }
         
         if (!taskValue.match(/^[a-zA-Z0-9\s]+$/)) {
-            showErrorMessage('Special characters are not allowed!');
+            handleErrorMessage('Special characters are not allowed!');
             taskInput.value = taskValue.replace(/[^a-zA-Z0-9\s]/g,'');
         } else{
-            clearErrorMessage();
+            handleErrorMessage();
         }
     });
- 
+    
     addTaskButton.onclick = addTask;
     taskInput.addEventListener('keydown', function(d) {
         if (d.key === 'Enter') addTask();
     });
-
+    
     allTasksButton.onclick = function() {
         renderActiveTab('all');
     };
